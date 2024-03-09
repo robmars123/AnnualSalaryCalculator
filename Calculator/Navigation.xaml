@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Calculator.Navigation"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Calculator.Pages"
+    Shell.FlyoutBehavior="Disabled">
+
+    <TabBar>
+        <Tab Title="Dashboard">
+            <ShellContent Icon="DashboardTabIcon.png"
+                          ContentTemplate="{DataTemplate local:Calculator}"/>
+        </Tab>
+        <Tab Title="SecondTab">
+            <ShellContent Icon="SecondTabIcon.png"
+                          ContentTemplate="{DataTemplate local:Homepage}"/>
+        </Tab>
+    </TabBar>
+
+</Shell>
