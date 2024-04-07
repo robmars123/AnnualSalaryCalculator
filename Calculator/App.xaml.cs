@@ -1,4 +1,6 @@
-﻿namespace Calculator
+﻿using Calculator.Pages;
+
+namespace Calculator
 {
     public partial class App : Application
     {
@@ -13,12 +15,12 @@
         {
             var window = base.CreateWindow(activationState);
 
-            const int newWidth = 500;
-            const int newHeight = 700;
+            const int newWidth = 400;
+            const int newHeight = 600;
 
             window.Width = newWidth;
             window.Height = newHeight;
-            window.Title = "Annual Salary Calculator";
+            window.Title = "Annual Salary Calculator - MAUI";
 
             return window;
         }

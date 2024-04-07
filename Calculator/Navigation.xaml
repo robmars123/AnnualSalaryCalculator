@@ -7,13 +7,13 @@
     Shell.FlyoutBehavior="Disabled">
 
     <TabBar>
-        <Tab Title="Dashboard">
+        <Tab Title="Home">
             <ShellContent Icon="DashboardTabIcon.png"
-                          ContentTemplate="{DataTemplate local:Calculator}"/>
+                          ContentTemplate="{DataTemplate local:Home}"/>
         </Tab>
-        <Tab Title="SecondTab">
+        <Tab Title="Compounded">
             <ShellContent Icon="SecondTabIcon.png"
-                          ContentTemplate="{DataTemplate local:Homepage}"/>
+                          ContentTemplate="{DataTemplate local:Compounded}"/>
         </Tab>
     </TabBar>
 

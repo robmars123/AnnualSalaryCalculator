@@ -23,4 +23,8 @@
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Abstraction\" />
+	</ItemGroup>
+
 </Project>
