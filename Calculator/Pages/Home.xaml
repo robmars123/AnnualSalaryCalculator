@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Calculator.Pages.Home"
-             Background="LightGray">
+             Background="{DynamicResource Gray500}">
 
     <ScrollView>
         <Border
@@ -12,7 +12,7 @@
             StrokeShape="RoundRectangle 4,4,4,4"
             Margin="20,20,20,20">
             <Border.Shadow>
-                <Shadow Brush="{DynamicResource Gray500}"
+                <Shadow Brush="{DynamicResource BlackBrush}"
                         Offset="1,3"
                         Radius="2"
                         Opacity="1"
