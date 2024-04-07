@@ -1,27 +1,28 @@
+using Calculator.Services;
+
 namespace Calculator.Pages;
 
-public partial class Calculator : ContentPage
+public partial class Home : ContentPage
 {
-    public const string YEARLY = "Yearly:";
-    public const string MONTHLY = "Monthly:";
-    public const string BIWEEKLY = "BiWeekly:";
-    public const string WEEKLY = "Weekly:";
-    public const string HOURLY = "Hourly:";
-    public const string DIFF = "Difference:";
-    public const string PERCENTINCREASE = "Percent Increase:";
-    public const string TOTALINCREASE = "Total Yearly:";
+    private const string YEARLY = "Yearly:";
+    private const string MONTHLY = "Monthly:";
+    private const string BIWEEKLY = "BiWeekly:";
+    private const string WEEKLY = "Weekly:";
+    private const string HOURLY = "Hourly:";
+    private const string DIFF = "Difference:";
+    private const string PERCENTINCREASE = "Percent Increase:";
+    private const string TOTALINCREASE = "Total Yearly:";
 
-    decimal tax = 0.0M;
-    decimal percentIncreaseAmount = 0.0M;
-    decimal monthly = 0.0M, weekly = 0.0M;
-    decimal hourly = 0.0M;
-    decimal yearly = 0.0M;
-    int count = 0;
-    public Calculator()
-	{
-		InitializeComponent();
+    private decimal tax = 0.0M;
+    private decimal percentIncreaseAmount = 0.0M;
+    private decimal monthly = 0.0M, weekly = 0.0M;
+    private decimal hourly = 0.0M;
+    private decimal yearly = 0.0M;
+
+    public Home()
+    {
+        InitializeComponent();
         PopulateControls();
-
     }
 
     private void PopulateControls()
@@ -71,56 +72,23 @@ public partial class Calculator : ContentPage
 
         //new increase
         TotalIncreaseResult.Text = String.Format("{0:C}", totalIncrease);
-        //monthly
-        CalculateMonthly(percentIncreaseAmount, yearly);
-        //biweekly
-        CalculateBiWeekly(percentIncreaseAmount, yearly);
-        //biweekly
-        CalculateWeekly(percentIncreaseAmount, yearly);
-        //hourly
-        CalculateHourly(percentIncreaseAmount, yearly);
+
+        CalculateResult(percentIncreaseAmount, yearly);
         //difference
         DifferenceResult.Text = String.Format("{0:C}", (totalIncrease - originalInput));
     }
 
-    private void CalculateMonthly(decimal percentIncreaseAmount, decimal yearly)
+    private void CalculateResult(decimal percentIncreaseAmount, decimal yearly)
     {
         MonthlyResult.Text = $"{CalculateTotal("monthly", percentIncreaseAmount, yearly)}";
-    }
-    private void CalculateBiWeekly(decimal percentIncreaseAmount, decimal yearly)
-    {
         BiWeeklyResult.Text = $"{CalculateTotal("biweekly", percentIncreaseAmount, yearly)}";
-    }
-
-    private void CalculateWeekly(decimal percentIncreaseAmount, decimal yearly)
-    {
         WeeklyResult.Text = $"{CalculateTotal("weekly", percentIncreaseAmount, yearly)}";
-    }
-
-    private void CalculateHourly(decimal percentIncreaseAmount, decimal yearly)
-    {
         HourlyResult.Text = $"{CalculateTotal("hourly", percentIncreaseAmount, yearly)}";
     }
+
     public string CalculateTotal(string type, decimal percentIncreaseAmount, decimal yearly)
     {
-        if (type == "monthly")
-        {
-            return String.Format("{0:C}", (percentIncreaseAmount + yearly) / 12);
-        }
-        else if (type == "biweekly")
-        {
-            return String.Format("{0:C}", (percentIncreaseAmount + yearly) / 26);
-        }
-        else if (type == "weekly")
-        {
-            return String.Format("{0:C}", ((percentIncreaseAmount + yearly) / 26) / 2);
-        }
-        else if (type == "hourly")
-        {
-            return String.Format("{0:C}", (percentIncreaseAmount + yearly) / (52 * 40));
-        }
-        else
-            return "0";
+        return CalculateManager.CalculateTotal(type, percentIncreaseAmount, yearly);
     }
     private void OnCounterClicked(object sender, EventArgs e)
     {
@@ -130,22 +98,18 @@ public partial class Calculator : ContentPage
 
         try
         {
-            //errorMsg.Text = "";
-
             if (string.IsNullOrEmpty(YearlyEntry.Text) || YearlyEntry.Text == "")
             {
                 YearlyEntry.Text = "0";
             }
-             //else if (YearlyEntry.Text == "0")
-            //    errorMsg.Text = "Required " + yearlyAmount.Name;
 
             originalInput = Convert.ToDecimal(YearlyEntry.Text);
 
             Calculate(originalInput);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            throw;
+
         }
 
         SemanticScreenReader.Announce(MonthlyLabel.Text);

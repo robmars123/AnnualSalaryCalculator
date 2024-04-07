@@ -20,6 +20,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
+		<WindowsPackageType>None</WindowsPackageType>
 		<!-- Display name -->
 		<ApplicationTitle>Calculator</ApplicationTitle>
 
@@ -70,13 +71,16 @@
 	  <Compile Update="Navigation.xaml.cs">
 	    <DependentUpon>Navigation.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Pages\Home.xaml.cs">
+	    <DependentUpon>Home.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\Compounded.xaml.cs">
 	    <DependentUpon>Compounded.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\Calculator.xaml">
+	  <MauiXaml Update="Pages\Home.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

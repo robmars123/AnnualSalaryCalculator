@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Calculator.Pages.Calculator"
-             BackgroundColor="LightGray">
+             x:Class="Calculator.Pages.Home"
+             Background="LightGray">
+
     <ScrollView>
         <Border
-            BackgroundColor="WhiteSmoke"
+            Background="WhiteSmoke"
             Stroke="Gray"
             StrokeThickness="0.5"
             StrokeShape="RoundRectangle 4,4,4,4"
@@ -23,18 +24,11 @@
                             >
 
                 <Label
-                                    Text="Annual Salary Calculator"
+                                    Text="Annual Salary"
                                     Style="{StaticResource Headline}"
                                     FontSize="25"
                                     Margin="0,15,0,-20"
                                     HorizontalOptions="Center"/>
-                <Image
-                                    Source="dotnet_bot.png"
-                                    HeightRequest="100"
-                                    Aspect="AspectFit"
-                                    SemanticProperties.Description="dot net bot in a race car number eight" />
-
-
                 <!--Yearly Button-->
 
                 <Label
@@ -168,7 +162,7 @@
 
                 <Button         BackgroundColor="{DynamicResource Gray600}"
                                     CornerRadius="2"
-                                    x:Name="CounterBtn"
+                                    x:Name="CalculateBtn"
                                     Text="Calculate" 
                                     SemanticProperties.Hint="Counts the number of times you click"
                                     Clicked="OnCounterClicked"
