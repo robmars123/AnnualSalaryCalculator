@@ -9,6 +9,13 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="Button" x:Key="CalculateBtn">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource White}}"></Setter>
+            </Style>
+            <Style TargetType="Button" x:Key="CalculateCompoundBtn">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource White}}"></Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

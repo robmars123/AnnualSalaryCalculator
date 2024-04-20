@@ -19,6 +19,8 @@ public partial class Home : ContentPage
     private decimal hourly = 0.0M;
     private decimal yearly = 0.0M;
 
+    #region Properties
+    #endregion
     public Home()
     {
         InitializeComponent();
@@ -37,6 +39,7 @@ public partial class Home : ContentPage
         PercentIncreaseLabel.Text = PERCENTINCREASE;
         TotalIncreaseLabel.Text += TOTALINCREASE;
 
+        TotalIncreaseResult.Text += initialValue.ToString();
         MonthlyResult.Text = initialValue.ToString();
         BiWeeklyResult.Text = initialValue.ToString();
         WeeklyResult.Text = initialValue.ToString();
@@ -114,4 +117,6 @@ public partial class Home : ContentPage
 
         SemanticScreenReader.Announce(MonthlyLabel.Text);
     }
+
+
 }
