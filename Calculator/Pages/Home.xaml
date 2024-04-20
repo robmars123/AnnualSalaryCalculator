@@ -37,10 +37,16 @@
                                     FontSize="15"
                                     Margin="0,0,0,-20"
                                     HorizontalOptions="Start"/>
-                <Entry x:Name="YearlyEntry"
+                <Border Stroke="{DynamicResource Gray500}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 2,2,2,2"
+                        Padding="0,5">
+                    <Entry x:Name="YearlyEntry"
                                        Placeholder="0"
-                                       Margin="0,0,0,-20"
+                                       Margin="0,-5,0,-10"
                                        />
+                </Border>
+
 
 
                 <!--Add % Increase-->
@@ -54,12 +60,15 @@
                                         Margin="0,0,0,-20"
                                         VerticalTextAlignment="Center"
                                         />
-                <Entry x:Name="PercentIncreaseEntry"
-                                       Placeholder="0"
-                                       Margin="0,0,0,-20"
-                                        WidthRequest="100"
-                       HorizontalOptions="Start"
-                                           />
+                <Border Stroke="{DynamicResource Gray500}"
+                       StrokeThickness="1"
+                       StrokeShape="RoundRectangle 2,2,2,2"
+                       Padding="0,5">
+                    <Entry x:Name="PercentIncreaseEntry"
+                                      Placeholder="0"
+                                      Margin="0,-5,0,-10"
+                                      />
+                </Border>
 
 
                 <!--Tax %-->
@@ -73,12 +82,15 @@
                                         Margin="0,0,0,-20"
                                         VerticalTextAlignment="Center"
                                         />
-                <Entry x:Name="TaxEntry"
-                                       Placeholder="0"
-                                       Margin="0,0,0,-10"
-                                        WidthRequest="100"
-                                HorizontalOptions="Start"
-                                           />
+                <Border Stroke="{DynamicResource Gray500}"
+                       StrokeThickness="1"
+                       StrokeShape="RoundRectangle 2,2,2,2"
+                       Padding="0,5">
+                    <Entry x:Name="TaxEntry"
+                                      Placeholder="0"
+                                      Margin="0,-5,0,-10"
+                                      />
+                </Border>
 
 
                 <!--Total % Increase-->
