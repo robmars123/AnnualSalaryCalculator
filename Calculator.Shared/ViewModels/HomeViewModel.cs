@@ -63,7 +63,8 @@ namespace Calculator.Shared.ViewModels
         private void PopulateResultDefaultValues()
         {
             decimal initialValue = 0;
-            Calculator.TotalIncreaseResult += initialValue.ToString();
+            Calculator.TotalIncreaseResult = initialValue.ToString();
+            Calculator.DifferenceResult = initialValue.ToString();
             Calculator.MonthlyResult = initialValue.ToString();
             Calculator.BiWeeklyResult = initialValue.ToString();
             Calculator.WeeklyResult = initialValue.ToString();
@@ -89,6 +90,8 @@ namespace Calculator.Shared.ViewModels
         {
             if (!string.IsNullOrEmpty(Calculator.PercentIncreaseEntry) && Calculator.PercentIncreaseEntry != "0")
                 percentIncreaseAmount = (originalInput * Convert.ToDecimal(Calculator.PercentIncreaseEntry)) / 100;
+            else
+                percentIncreaseAmount = 0;
 
             return originalInput + percentIncreaseAmount;
         }
