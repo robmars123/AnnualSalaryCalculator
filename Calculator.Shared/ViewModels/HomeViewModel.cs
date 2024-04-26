@@ -19,9 +19,8 @@ namespace Calculator.Shared.ViewModels
 
         private decimal tax = 0.0M;
         private decimal percentIncreaseAmount = 0.0M;
-        private decimal monthly = 0.0M, weekly = 0.0M;
-        private decimal hourly = 0.0M;
         private decimal yearly = 0.0M;
+        private decimal totalIncrease = 0.0M;
 
         #region Property
         [ObservableProperty]
@@ -34,12 +33,17 @@ namespace Calculator.Shared.ViewModels
         private CalculatorModel calculator = new CalculatorModel();
 
         #endregion Property
+        #region Constructor
         public HomeViewModel()
         {
             InitiateControls();
         }
-
+        #endregion Constructor
+        #region Commands
         public ICommand OnCalculate_Command => new Command(OnCalculate_Tapped);
+        #endregion Commands
+
+        #region Initiate
         private void InitiateControls()
         {
             Calculator.YearlyLabel = YEARLY;
@@ -54,7 +58,8 @@ namespace Calculator.Shared.ViewModels
 
             PopulateResultDefaultValues();
         }
-
+        #endregion
+        #region Methods
         private void PopulateResultDefaultValues()
         {
             decimal initialValue = 0;
@@ -66,42 +71,45 @@ namespace Calculator.Shared.ViewModels
         }
         private void ResetAll()
         {
-
+            PopulateResultDefaultValues();
         }
 
         public void Calculate(decimal originalInput)
         {
-            //total deductions in tax %
-            decimal totalDeduction = 0;
+            //Percent Increase
+            totalIncrease = GetPercentIncreaseTotal(originalInput);
+            yearly = GetYearlyAfterTax(originalInput);
+
+            //Display Results
+            CalculateResult(percentIncreaseAmount, totalIncrease, originalInput, yearly);
+        }
+
+        private decimal GetPercentIncreaseTotal(decimal originalInput)
+        {
+            if (!string.IsNullOrEmpty(Calculator.PercentIncreaseEntry) && Calculator.PercentIncreaseEntry != "0")
+                percentIncreaseAmount = (originalInput * Convert.ToDecimal(Calculator.PercentIncreaseEntry)) / 100;
+
+            return originalInput + percentIncreaseAmount;
+        }
+
+        private decimal GetYearlyAfterTax(decimal originalInput)
+        {
             if (!string.IsNullOrEmpty(Calculator.TaxEntry))
             {
                 tax = Convert.ToDecimal(Calculator.TaxEntry) / 100;
-                totalDeduction = originalInput * tax;
             }
-            yearly = originalInput - totalDeduction;
-
-            //percent increase
-            decimal totalIncrease = 0;
-            if (!string.IsNullOrEmpty(Calculator.PercentIncreaseEntry) && Calculator.PercentIncreaseEntry != "0")
-            {
-                percentIncreaseAmount = (originalInput * Convert.ToDecimal(Calculator.PercentIncreaseEntry)) / 100;
-            }
-            totalIncrease = originalInput + percentIncreaseAmount;
-
-            //new increase
-            Calculator.TotalIncreaseResult = String.Format("{0:C}", totalIncrease);
-
-            CalculateResult(percentIncreaseAmount, yearly);
-            //difference
-            Calculator.DifferenceResult = String.Format("{0:C}", (totalIncrease - originalInput));
+            return originalInput - (originalInput * tax);
         }
 
-        private void CalculateResult(decimal percentIncreaseAmount, decimal yearly)
+        private void CalculateResult(decimal percentIncreaseAmount, decimal totalIncrease, decimal originalInput, decimal yearly)
         {
             Calculator.MonthlyResult = $"{CalculateTotal("monthly", percentIncreaseAmount, yearly)}";
             Calculator.BiWeeklyResult = $"{CalculateTotal("biweekly", percentIncreaseAmount, yearly)}";
             Calculator.WeeklyResult = $"{CalculateTotal("weekly", percentIncreaseAmount, yearly)}";
             Calculator.HourlyResult = $"{CalculateTotal("hourly", percentIncreaseAmount, yearly)}";
+
+            Calculator.DifferenceResult = string.Format("{0:C}", (totalIncrease - originalInput));
+            Calculator.TotalIncreaseResult = totalIncrease.ToString();
         }
 
         public string CalculateTotal(string type, decimal percentIncreaseAmount, decimal yearly)
@@ -111,24 +119,20 @@ namespace Calculator.Shared.ViewModels
         private void OnCalculate_Tapped()
         {
             ResetAll();
-            //annualy input
-            decimal originalInput = 0;
 
             try
             {
                 if (string.IsNullOrEmpty(Calculator.YearlyEntry) || Calculator.YearlyEntry == "")
-                {
                     Calculator.YearlyEntry = "0";
-                }
 
-                originalInput = Convert.ToDecimal(Calculator.YearlyEntry);
-
+                decimal originalInput = Convert.ToDecimal(Calculator.YearlyEntry);
                 Calculate(originalInput);
             }
             catch (Exception)
             {
-                //todo: Write error message here.
+                //TODO: Write error message here.
             }
         }
+        #endregion Methods
     }
 }
