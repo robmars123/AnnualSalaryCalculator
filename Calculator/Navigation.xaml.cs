@@ -1,6 +1,4 @@
-﻿using Calculator.ViewModels;
-
-namespace Calculator
+﻿namespace Calculator
 {
     public partial class Navigation : Shell
     {

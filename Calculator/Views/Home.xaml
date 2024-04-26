@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Calculator.Shared.ViewModels;assembly=Calculator.Shared"
              x:Class="Calculator.Pages.Home"
              Background="{DynamicResource Gray500}">
 
@@ -24,7 +25,7 @@
                             >
 
                 <Label
-                                    Text="Annual Salary"
+                                    Text="{Binding Title}"
                                     Style="{StaticResource Headline}"
                                     FontSize="25"
                                     Margin="0,15,0,-20"
@@ -34,14 +35,16 @@
                 <Label
                                     x:Name="YearlyLabel"
                                     Style="{StaticResource Headline}"
+                                    Text="{Binding Calculator.YearlyLabel}"
                                     FontSize="15"
                                     Margin="0,0,0,-20"
                                     HorizontalOptions="Start"/>
                 <Border Stroke="{DynamicResource Gray500}"
                         StrokeThickness="1"
                         StrokeShape="RoundRectangle 2,2,2,2"
-                        Padding="0,5">
+                        Padding="0,5,0,8">
                     <Entry x:Name="YearlyEntry"
+                           Text="{Binding Calculator.YearlyEntry}"
                                        Placeholder="0"
                                        Margin="0,-5,0,-10"
                                        />
@@ -53,7 +56,7 @@
 
                 <Label
                                         x:Name="PercentIncreaseLabel"
-                                        Text="Tax %:"
+                                        Text="{Binding Calculator.PercentIncreaseLabel}"
                                         Style="{StaticResource Headline}"
                                         FontSize="15"
                                         HorizontalOptions="Start"
@@ -63,8 +66,9 @@
                 <Border Stroke="{DynamicResource Gray500}"
                        StrokeThickness="1"
                        StrokeShape="RoundRectangle 2,2,2,2"
-                       Padding="0,5">
+                       Padding="0,5,0,8">
                     <Entry x:Name="PercentIncreaseEntry"
+                           Text="{Binding Calculator.PercentIncreaseEntry}"
                                       Placeholder="0"
                                       Margin="0,-5,0,-10"
                                       />
@@ -85,8 +89,9 @@
                 <Border Stroke="{DynamicResource Gray500}"
                        StrokeThickness="1"
                        StrokeShape="RoundRectangle 2,2,2,2"
-                       Padding="0,5">
+                       Padding="0,5,0,8">
                     <Entry x:Name="TaxEntry"
+                           Text="{Binding Calculator.TaxEntry}"
                                       Placeholder="0"
                                       Margin="0,-5,0,-10"
                                       />
@@ -99,10 +104,12 @@
                     <Label
                                         x:Name="TotalIncreaseLabel"
                                         Style="{StaticResource Headline}"
+                                        Text="{Binding Calculator.TotalIncreaseLabel}"
                                         FontSize="15"
                                         Margin="0,0,0,-20"
                                         HorizontalOptions="Start"/>
                     <Label x:Name="TotalIncreaseResult" 
+                           Text="{Binding Calculator.TotalIncreaseResult}"
                                            HorizontalTextAlignment="End"
                                            FontAttributes="Bold"/>
                 </StackLayout>
@@ -113,10 +120,12 @@
                     <Label
                                         x:Name="DifferenceLabel"
                                         Style="{StaticResource Headline}"
+                                        Text="{Binding Calculator.DifferenceLabel}"
                                         FontSize="15"
                                         Margin="0,0,0,-20"
                                         HorizontalOptions="Start"/>
                     <Label x:Name="DifferenceResult" 
+                           Text="{Binding Calculator.DifferenceResult}"
                                            HorizontalTextAlignment="End"/>
                 </StackLayout>
 
@@ -126,10 +135,12 @@
                     <Label
                                         x:Name="MonthlyLabel"
                                         Style="{StaticResource Headline}"
+                                        Text="{Binding Calculator.MonthlyLabel}"
                                         FontSize="15"
                                         Margin="0,0,0,-20"
                                         HorizontalOptions="Start"/>
                     <Label x:Name="MonthlyResult" 
+                           Text="{Binding Calculator.MonthlyResult}"
                                            HorizontalTextAlignment="End"/>
                 </StackLayout>
 
@@ -139,36 +150,42 @@
                     <Label
                                         x:Name="BiWeeklyLabel"
                                         Style="{StaticResource Headline}"
+                                        Text="{Binding Calculator.BiWeeklyLabel}"
                                         FontSize="15"
                                         Margin="0,0,0,-20"
                                         HorizontalOptions="Start"/>
                     <Label x:Name="BiWeeklyResult" 
+                           Text="{Binding Calculator.BiWeeklyResult}"
                                            HorizontalTextAlignment="End"/>
                 </StackLayout>
 
-                <!--Bi-Weekly Button-->
+                <!--Weekly Button-->
 
                 <StackLayout Margin="0,0,0,-20">
                     <Label
                                         x:Name="WeeklyLabel"
                                         Style="{StaticResource Headline}"
+                                        Text="{Binding Calculator.WeeklyLabel}"
                                         FontSize="15"
                                         Margin="0,0,0,-20"
                                         HorizontalOptions="Start"/>
                     <Label x:Name="WeeklyResult"
+                           Text="{Binding Calculator.WeeklyResult}"
                                            HorizontalTextAlignment="End"/>
                 </StackLayout>
 
-                <!--Bi-Weekly Button-->
+                <!--Hourly Button-->
 
                 <StackLayout>
                     <Label
                                         x:Name="HourlyLabel"
                                         Style="{StaticResource Headline}"
+                                        Text="{Binding Calculator.HourlyLabel}"
                                         FontSize="15"
                                         Margin="0,0,0,-20"
                                         HorizontalOptions="Start"/>
                     <Label x:Name="HourlyResult"
+                           Text="{Binding Calculator.HourlyResult}"
                                            HorizontalTextAlignment="End"/>
                 </StackLayout>
 
@@ -176,10 +193,9 @@
                                     CornerRadius="2"
                                     x:Name="CalculateBtn"
                                     Text="Calculate" 
-                                    SemanticProperties.Hint="Counts the number of times you click"
-                                    Clicked="OnCounterClicked"
                                     HorizontalOptions="Fill"
-                                    Margin="20"/>
+                                    Command="{Binding OnCalculate_Command}"
+                                    Margin="20" />
             </VerticalStackLayout>
         </Border>
     </ScrollView>
