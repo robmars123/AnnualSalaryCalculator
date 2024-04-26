@@ -1,5 +1,6 @@
 ﻿using Calculator.Pages;
-using Calculator.ViewModels;
+using Calculator.Shared.ViewModels;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.Logging;
 
 namespace Calculator
@@ -9,6 +10,18 @@ namespace Calculator
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+            // The important part
+            builder.Services.Scan(s => s
+                .FromAssemblyOf<App>()
+                .AddClasses(f => f.AssignableToAny(
+                        typeof(ContentPage),
+                        typeof(ObservableObject))
+                    )
+                    .AsSelf()
+                    .WithSingletonLifetime()
+            );
+            // end of important part
+
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
@@ -18,7 +31,7 @@ namespace Calculator
                 });
 
 
-            builder.Services.AddSingleton<HomeViewModel>();
+            builder.Services.AddTransient<HomeViewModel>();
             builder.Services.AddSingleton<Home>();
             builder.Services.AddSingleton<Navigation>();
 

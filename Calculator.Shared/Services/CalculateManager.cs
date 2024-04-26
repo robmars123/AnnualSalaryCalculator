@@ -1,6 +1,6 @@
 ﻿
 
-namespace Calculator.Shared.Services
+namespace Calculator.Services
 {
     public static class CalculateManager
     {
