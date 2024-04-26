@@ -78,6 +78,7 @@ namespace Calculator.Shared.ViewModels
         {
             //Percent Increase
             totalIncrease = GetPercentIncreaseTotal(originalInput);
+            //Calculate yearly with/without tax deduction
             yearly = GetYearlyAfterTax(originalInput);
 
             //Display Results
@@ -103,18 +104,13 @@ namespace Calculator.Shared.ViewModels
 
         private void CalculateResult(decimal percentIncreaseAmount, decimal totalIncrease, decimal originalInput, decimal yearly)
         {
-            Calculator.MonthlyResult = $"{CalculateTotal("monthly", percentIncreaseAmount, yearly)}";
-            Calculator.BiWeeklyResult = $"{CalculateTotal("biweekly", percentIncreaseAmount, yearly)}";
-            Calculator.WeeklyResult = $"{CalculateTotal("weekly", percentIncreaseAmount, yearly)}";
-            Calculator.HourlyResult = $"{CalculateTotal("hourly", percentIncreaseAmount, yearly)}";
+            Calculator.MonthlyResult = $"{CalculateManager.CalculateTotal("monthly", percentIncreaseAmount, yearly)}";
+            Calculator.BiWeeklyResult = $"{CalculateManager.CalculateTotal("biweekly", percentIncreaseAmount, yearly)}";
+            Calculator.WeeklyResult = $"{CalculateManager.CalculateTotal("weekly", percentIncreaseAmount, yearly)}";
+            Calculator.HourlyResult = $"{CalculateManager.CalculateTotal("hourly", percentIncreaseAmount, yearly)}";
 
             Calculator.DifferenceResult = string.Format("{0:C}", (totalIncrease - originalInput));
             Calculator.TotalIncreaseResult = totalIncrease.ToString();
-        }
-
-        public string CalculateTotal(string type, decimal percentIncreaseAmount, decimal yearly)
-        {
-            return CalculateManager.CalculateTotal(type, percentIncreaseAmount, yearly);
         }
         private void OnCalculate_Tapped()
         {
