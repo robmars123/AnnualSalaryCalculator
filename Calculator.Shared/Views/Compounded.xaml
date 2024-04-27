@@ -34,42 +34,42 @@
                       >
                     <!--Yearly-->
                     <Label Grid.Row="0" 
-                           Grid.Column="0" Text="Yearly:" Margin="0,0,25,10" VerticalOptions="Center" HorizontalOptions="End"/>
+                           Grid.Column="0" Text="Yearly :" Margin="0,0,25,10" VerticalOptions="Center" HorizontalOptions="End"/>
                     <Border Grid.Row="0" Grid.Column="1" Stroke="{DynamicResource Gray500}"
                        StrokeThickness="1"
                        StrokeShape="RoundRectangle 2,2,2,2"
                        HorizontalOptions="End"
-                       Padding="8,0,-5,0"
-                       Margin="-20,0,0,5">
+                       Padding="0,0,-5,0"
+                       Margin="-18,0,0,5">
                         <Entry Margin="-5" Grid.Row="3" x:Name="compoundYearlyInitialEntry" Grid.Column="1" WidthRequest="150" HorizontalOptions="End"/>
                     </Border>
                    
                     <!--Increase Yearly %-->
-                    <Label Grid.Row="1" Grid.Column="0" Text="Increase Yearly %:" Margin="0,0,25,10" VerticalOptions="Center" HorizontalOptions="End"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="Increase Yearly % :" Margin="0,0,25,10" VerticalOptions="Center" HorizontalOptions="End"/>
                     <Border Grid.Row="1" Grid.Column="1" Stroke="{DynamicResource Gray500}"
                        StrokeThickness="1"
                        StrokeShape="RoundRectangle 2,2,2,2"
                        HorizontalOptions="FillAndExpand"
-                            Padding="8,0,-5,0"
-                       Margin="-20,0,0,5">
+                            Padding="0,0,-5,0"
+                       Margin="-18,0,0,5">
                         <Entry Margin="-5" Grid.Row="1" x:Name="compoundIncreasePercentlEntry" Grid.Column="1" WidthRequest="150" HorizontalOptions="FillAndExpand" />
                     </Border>
                     <!--Frequency Per Year-->
-                    <Label Grid.Row="2" Grid.Column="0" Text="Frequency Per Year:" Margin="0,0,25,10" VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
+                    <Label Grid.Row="2" Grid.Column="0" Text="Frequency Per Year :" Margin="0,0,25,10" VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
                     <Border Grid.Row="2" Grid.Column="1" Stroke="{DynamicResource Gray500}"
                        StrokeThickness="1"
                        StrokeShape="RoundRectangle 2,2,2,2"
                             HorizontalOptions="End"
-                            Padding="8,0,-5,0"
+                            Padding="0,0,-5,0"
                             Margin="-20,0,0,5">
                         <Entry Margin="-5" Grid.Row="2" x:Name="compoundFreqEntry" Grid.Column="1" WidthRequest="150" HorizontalOptions="End" />
                     </Border>
                     <!--Number of Years-->
-                    <Label Grid.Row="3" Grid.Column="0" Text="Number of Years:" Margin="0,0,25,10" VerticalOptions="Center" HorizontalOptions="End"/>
+                    <Label Grid.Row="3" Grid.Column="0" Text="Number of Years :" Margin="0,0,25,10" VerticalOptions="Center" HorizontalOptions="End"/>
                     <Border Grid.Row="3" Grid.Column="1" Stroke="{DynamicResource Gray500}"
                        StrokeThickness="1"
                        StrokeShape="RoundRectangle 2,2,2,2"
-                            Padding="8,0,-5,0"
+                            Padding="0,0,-5,0"
                        HorizontalOptions="End"
                        Margin="-20,0,0,5">
                         <Entry Margin="-5" Grid.Row="3" x:Name="compoundNumberOfYearsEntry" Grid.Column="1" WidthRequest="150" HorizontalOptions="End"/>

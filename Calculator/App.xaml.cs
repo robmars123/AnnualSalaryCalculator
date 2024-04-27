@@ -1,4 +1,4 @@
-﻿using Calculator.Pages;
+﻿using Calculator.Shared;
 
 namespace Calculator
 {

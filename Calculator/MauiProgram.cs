@@ -1,6 +1,5 @@
-﻿using Calculator.Pages;
-using Calculator.Shared.ViewModels;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Calculator.Shared.ViewModels;
+using Calculator.Shared.Views;
 using Microsoft.Extensions.Logging;
 
 namespace Calculator
