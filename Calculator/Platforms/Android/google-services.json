@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "199280884915",
+    "project_id": "pushnotification-74ad2",
+    "storage_bucket": "pushnotification-74ad2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:199280884915:android:0497f586c157ffb09ac4c6",
+        "android_client_info": {
+          "package_name": "com.company.calculator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDODGlL1qHCleIzHkTZKvP33UqGAB8Z8iA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
