@@ -1,26 +1,19 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Calculator.Services;
-using Calculator.Shared;
+﻿using Calculator.Services;
+using Calculator.Shared.Enums;
 using Calculator.Shared.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System.Windows.Input;
 
 namespace Calculator.Shared.ViewModels
 {
     public partial class HomeViewModel : ObservableObject
     {
-        private const string YEARLY = "Yearly:";
-        private const string MONTHLY = "Monthly:";
-        private const string BIWEEKLY = "BiWeekly:";
-        private const string WEEKLY = "Weekly:";
-        private const string HOURLY = "Hourly:";
-        private const string DIFF = "Difference:";
-        private const string PERCENTINCREASE = "Percent Increase:";
-        private const string TOTALINCREASE = "Total Yearly:";
 
         private decimal tax = 0.0M;
         private decimal percentIncreaseAmount = 0.0M;
         private decimal yearly = 0.0M;
         private decimal totalIncrease = 0.0M;
+ 
 
         #region Property
         [ObservableProperty]
@@ -46,16 +39,6 @@ namespace Calculator.Shared.ViewModels
         #region Initiate
         private void InitiateControls()
         {
-            Calculator.YearlyLabel = YEARLY;
-            Calculator.MonthlyLabel = MONTHLY;
-            Calculator.BiWeeklyLabel = BIWEEKLY;
-            Calculator.WeeklyLabel = WEEKLY;
-            Calculator.HourlyLabel = HOURLY;
-
-            Calculator.PercentIncreaseLabel = PERCENTINCREASE;
-            Calculator.TotalIncreaseLabel = TOTALINCREASE;
-            Calculator.DifferenceLabel = DIFF;
-
             PopulateResultDefaultValues();
         }
         #endregion
@@ -107,10 +90,10 @@ namespace Calculator.Shared.ViewModels
 
         private void CalculateResult(decimal percentIncreaseAmount, decimal totalIncrease, decimal originalInput, decimal yearly)
         {
-            Calculator.MonthlyResult = $"{CalculateManager.CalculateTotal("monthly", percentIncreaseAmount, yearly)}";
-            Calculator.BiWeeklyResult = $"{CalculateManager.CalculateTotal("biweekly", percentIncreaseAmount, yearly)}";
-            Calculator.WeeklyResult = $"{CalculateManager.CalculateTotal("weekly", percentIncreaseAmount, yearly)}";
-            Calculator.HourlyResult = $"{CalculateManager.CalculateTotal("hourly", percentIncreaseAmount, yearly)}";
+            Calculator.MonthlyResult = $"{CalculateManager.CalculateTotal(nameof(CategoryType.Monthly), percentIncreaseAmount, yearly)}";
+            Calculator.BiWeeklyResult = $"{CalculateManager.CalculateTotal(nameof(CategoryType.BiWeekly), percentIncreaseAmount, yearly)}";
+            Calculator.WeeklyResult = $"{CalculateManager.CalculateTotal(nameof(CategoryType.Weekly), percentIncreaseAmount, yearly)}";
+            Calculator.HourlyResult = $"{CalculateManager.CalculateTotal(nameof(CategoryType.Hourly), percentIncreaseAmount, yearly)}";
 
             Calculator.DifferenceResult = string.Format("{0:C}", (totalIncrease - originalInput));
             Calculator.TotalIncreaseResult = totalIncrease.ToString();
