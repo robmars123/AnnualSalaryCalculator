@@ -8,12 +8,10 @@ namespace Calculator.Shared.ViewModels
 {
     public partial class HomeViewModel : ObservableObject
     {
-
         private decimal tax = 0.0M;
         private decimal percentIncreaseAmount = 0.0M;
         private decimal yearly = 0.0M;
         private decimal totalIncrease = 0.0M;
- 
 
         #region Property
         [ObservableProperty]
@@ -46,6 +44,7 @@ namespace Calculator.Shared.ViewModels
         private void PopulateResultDefaultValues()
         {
             decimal initialValue = 0;
+            tax = default;
             Calculator.TotalIncreaseResult = initialValue.ToString();
             Calculator.DifferenceResult = initialValue.ToString();
             Calculator.MonthlyResult = initialValue.ToString();
@@ -58,15 +57,15 @@ namespace Calculator.Shared.ViewModels
             PopulateResultDefaultValues();
         }
 
-        public void Calculate(decimal originalInput)
+        public void Calculate(Action<string> callBack, decimal originalInput)
         {
-            //Percent Increase
             totalIncrease = GetPercentIncreaseTotal(originalInput);
-            //Calculate yearly with/without tax deduction
             yearly = GetYearlyAfterTax(originalInput);
 
             //Display Results
             CalculateResult(percentIncreaseAmount, totalIncrease, originalInput, yearly);
+
+            callBack(Calculator.HistoryList.FirstOrDefault());
         }
 
         private decimal GetPercentIncreaseTotal(decimal originalInput)
@@ -95,8 +94,8 @@ namespace Calculator.Shared.ViewModels
             Calculator.WeeklyResult = $"{CalculateManager.CalculateTotal(nameof(CategoryType.Weekly), percentIncreaseAmount, yearly)}";
             Calculator.HourlyResult = $"{CalculateManager.CalculateTotal(nameof(CategoryType.Hourly), percentIncreaseAmount, yearly)}";
 
-            Calculator.DifferenceResult = string.Format("{0:C}", (totalIncrease - originalInput));
-            Calculator.TotalIncreaseResult = totalIncrease.ToString();
+            Calculator.DifferenceResult = string.Format("{0:C}", totalIncrease - originalInput);
+            Calculator.TotalIncreaseResult = string.Format("{0:C}", totalIncrease);
         }
         private void OnCalculate_Tapped()
         {
@@ -108,7 +107,8 @@ namespace Calculator.Shared.ViewModels
                     Calculator.YearlyEntry = "0";
 
                 decimal originalInput = Convert.ToDecimal(Calculator.YearlyEntry);
-                Calculate(originalInput);
+                //callbacks
+                Calculate((returnedMsg) => Calculator.HistoryList.FirstOrDefault(), originalInput);
             }
             catch (Exception)
             {

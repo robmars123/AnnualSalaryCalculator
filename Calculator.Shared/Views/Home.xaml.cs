@@ -1,22 +1,18 @@
 using Calculator.Shared.Models;
 using Calculator.Shared.ViewModels;
+using Calculator.Shared.Views.Base;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace Calculator.Shared.Views;
 
-public partial class Home : ContentPage
+public partial class Home : BaseView
 {
     private string _deviceToken;
     public Home()
     {
         InitializeComponent();
-        HandlerChanged += OnHandlerChanged;
-        PushNotification();
-    }
-    void OnHandlerChanged(object sender, EventArgs e)
-    {
-        BindingContext = Handler.MauiContext.Services.GetService<HomeViewModel>();
+       // PushNotification();
     }
 
     private async void PushNotification()

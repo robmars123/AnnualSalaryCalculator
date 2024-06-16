@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<base:BaseView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:base="clr-namespace:Calculator.Shared.Views.Base;assembly=Calculator.Shared"   
              xmlns:vm="clr-namespace:Calculator.Shared.ViewModels;assembly=Calculator.Shared"
              x:Class="Calculator.Shared.Views.Home"
              Background="{DynamicResource Gray500}">
@@ -196,7 +197,24 @@
                                     HorizontalOptions="Fill"
                                     Command="{Binding OnCalculate_Command}"
                                     Margin="20" />
+
+                <Label Text="{Binding ResultMessage}" HorizontalOptions="CenterAndExpand"
+                       TextColor="Green"/>
+
+                <StackLayout>
+                    <CollectionView>
+                        <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" />
+                            </CollectionView.ItemsLayout>
+                        </CollectionView>
+                        <CollectionView  ItemsSource="{Binding Calculator.HistoryList}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                    </CollectionView>
+                </StackLayout>
+                
             </VerticalStackLayout>
         </Border>
     </ScrollView>
-</ContentPage>
+</base:BaseView>
