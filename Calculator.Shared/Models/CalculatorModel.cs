@@ -1,9 +1,17 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Calculator.Shared.EventHandlers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace Calculator.Shared.Models
 {
     public class CalculatorModel : BindableObject
     {
+        public CalculatorModel()
+        {
+            EventNotification.EventNotifier += AddNotificationHistoryList;
+        }
+  
+        public List<string> HistoryList { get; set; } = new List<string>();
         #region Labels
         public string YearlyLabel { get; set; }
         public string MonthlyLabel { get; set; }
@@ -23,9 +31,24 @@ namespace Calculator.Shared.Models
             BindableProperty.Create("TotalIncreaseResult", typeof(string), typeof(CalculatorModel), null);
         public string TotalIncreaseResult
         {
-            get { return (string)GetValue(TotalIncreaseResultProperty); }
-            set { SetValue(TotalIncreaseResultProperty, value); }
+            get => (string)GetValue(TotalIncreaseResultProperty);
+            set
+            {
+                SetValue(TotalIncreaseResultProperty, value);
+                EventNotification.EventNotifier.Invoke(value);
+            }
         }
+        public static string RemoveSpecialCharacters(string str)
+        {
+            return Regex.Replace(str, "[^a-zA-Z0-9_.]+", "", RegexOptions.Compiled);
+        }
+        private void AddNotificationHistoryList(string value)
+        {
+            value = RemoveSpecialCharacters(value);
+            if (!string.IsNullOrEmpty(value) && decimal.Parse(value) > 0)
+                HistoryList.Add(value);
+        }
+
         public static readonly BindableProperty DifferenceResultProperty =
     BindableProperty.Create("DifferenceResult", typeof(string), typeof(CalculatorModel), null);
         public string DifferenceResult
@@ -69,5 +92,13 @@ namespace Calculator.Shared.Models
         public string TaxEntry { get; set; }
         public string PercentIncreaseEntry { get; set; }
         #endregion Entry
+
+        public static readonly BindableProperty SuccessfulResultProperty =
+         BindableProperty.Create("SuccessfulResult", typeof(string), typeof(CalculatorModel), null);
+        public string SuccessfulResult
+        {
+            get { return (string)GetValue(SuccessfulResultProperty); }
+            set { SetValue(SuccessfulResultProperty, value); }
+        }
     }
 }
