@@ -1,13 +1,22 @@
 ﻿using Calculator.Services;
+using Calculator.Shared.Abstraction;
+using Calculator.Shared.Diagnostics;
 using Calculator.Shared.Enums;
 using Calculator.Shared.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.Logging;
+using OpenTelemetry.Trace;
 using System.Windows.Input;
 
 namespace Calculator.Shared.ViewModels
 {
     public partial class HomeViewModel : ObservableObject
     {
+        private readonly ICalculateManager _calculateManager;
+        public HomeViewModel(ICalculateManager calculateManager)
+        {
+            _calculateManager = calculateManager;
+        }
         private decimal tax = 0.0M;
         private decimal percentIncreaseAmount = 0.0M;
         private decimal yearly = 0.0M;
@@ -22,6 +31,9 @@ namespace Calculator.Shared.ViewModels
 
         [ObservableProperty]
         private CalculatorModel calculator = new CalculatorModel();
+        private readonly ILogger<HomeViewModel> _logger;
+        private readonly Tracer _tracer;
+
 
         #endregion Property
         #region Constructor
@@ -29,9 +41,16 @@ namespace Calculator.Shared.ViewModels
         {
             InitiateControls();
         }
+
+        public HomeViewModel(ILogger<HomeViewModel> logger, Tracer tracer)
+        {
+            _logger = logger;
+            _tracer = tracer;
+        }
         #endregion Constructor
         #region Commands
         public ICommand OnCalculate_Command => new Command(OnCalculate_Tapped);
+
         #endregion Commands
 
         #region Initiate
@@ -89,31 +108,25 @@ namespace Calculator.Shared.ViewModels
 
         private void CalculateResult(decimal percentIncreaseAmount, decimal totalIncrease, decimal originalInput, decimal yearly)
         {
-            Calculator.MonthlyResult = $"{CalculateManager.CalculateTotal(nameof(CategoryType.Monthly), percentIncreaseAmount, yearly)}";
-            Calculator.BiWeeklyResult = $"{CalculateManager.CalculateTotal(nameof(CategoryType.BiWeekly), percentIncreaseAmount, yearly)}";
-            Calculator.WeeklyResult = $"{CalculateManager.CalculateTotal(nameof(CategoryType.Weekly), percentIncreaseAmount, yearly)}";
-            Calculator.HourlyResult = $"{CalculateManager.CalculateTotal(nameof(CategoryType.Hourly), percentIncreaseAmount, yearly)}";
+            Calculator.MonthlyResult = _calculateManager.CalculateTotal(new Monthly(), percentIncreaseAmount, yearly);
+            Calculator.BiWeeklyResult = _calculateManager.CalculateTotal(new BiWeekly(), percentIncreaseAmount, yearly);
+            Calculator.WeeklyResult = _calculateManager.CalculateTotal(new Weekly(), percentIncreaseAmount, yearly);
+            Calculator.HourlyResult = _calculateManager.CalculateTotal(new Hourly(), percentIncreaseAmount, yearly);
 
             Calculator.DifferenceResult = string.Format("{0:C}", totalIncrease - originalInput);
             Calculator.TotalIncreaseResult = string.Format("{0:C}", totalIncrease);
         }
         private void OnCalculate_Tapped()
         {
+
             ResetAll();
+            if (string.IsNullOrEmpty(Calculator.YearlyEntry) || Calculator.YearlyEntry == "")
+                Calculator.YearlyEntry = "0";
 
-            try
-            {
-                if (string.IsNullOrEmpty(Calculator.YearlyEntry) || Calculator.YearlyEntry == "")
-                    Calculator.YearlyEntry = "0";
+            decimal originalInput = Convert.ToDecimal(Calculator.YearlyEntry);
+            //callbacks
+            Calculate((returnedMsg) => Calculator.HistoryList.FirstOrDefault(), originalInput);
 
-                decimal originalInput = Convert.ToDecimal(Calculator.YearlyEntry);
-                //callbacks
-                Calculate((returnedMsg) => Calculator.HistoryList.FirstOrDefault(), originalInput);
-            }
-            catch (Exception)
-            {
-                //TODO: Write error message here.
-            }
         }
         #endregion Methods
     }

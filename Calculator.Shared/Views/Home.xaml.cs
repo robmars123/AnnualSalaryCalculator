@@ -1,7 +1,9 @@
 using Calculator.Shared.Models;
 using Calculator.Shared.ViewModels;
 using Calculator.Shared.Views.Base;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using OpenTelemetry.Trace;
 using System.Text;
 
 namespace Calculator.Shared.Views;
@@ -9,41 +11,27 @@ namespace Calculator.Shared.Views;
 public partial class Home : BaseView
 {
     private string _deviceToken;
+    private readonly ILogger<MainPage> _logger;
+    private readonly Tracer _tracer;
+
+    // Parameterless constructor for Xamarin/Maui to use
     public Home()
     {
         InitializeComponent();
-       // PushNotification();
+        _logger = null;  // Optionally initialize as null or use a fallback logger here
+        _tracer = null;  // Optionally initialize as null
     }
 
-    private async void PushNotification()
+
+
+    // Constructor with DI-injected dependencies
+    public Home(ILogger<MainPage> logger, Tracer tracer)
     {
-        var androidNotificationObject = new Dictionary<string, string>();
-        androidNotificationObject.Add("NavigationID", "2");
+        InitializeComponent();
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _tracer = tracer ?? throw new ArgumentNullException(nameof(tracer));
 
-        var iosNotificationObject = new Dictionary<string, object>();
-        iosNotificationObject.Add("NavigationID", "2");
-
-        var pushNotificationRequest = new PushNotificationRequest
-        {
-            notification = new NotificationMessageBody
-            {
-                title = "Notification Title",
-                body = "Notification body"
-            },
-            data = androidNotificationObject,
-            registration_ids = new List<string> { _deviceToken }
-        };
-
-        string url = "https://fcm.googleapis.com/fcm/send";
-
-        using (var client = new HttpClient())
-        {
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("key", "=" + "JqZh0-u1pKrBikmZ4WlZ3eiav53hv_joDvpX4uHJ9VM");
-
-            string serializeRequest = JsonConvert.SerializeObject(pushNotificationRequest);
-            var response = await client.PostAsync(url, new StringContent(serializeRequest, Encoding.UTF8, "application/json"));
-            response.StatusCode = System.Net.HttpStatusCode.OK;
-            await DisplayAlert("Notification sent", "notification sent", "OK");
-        }
+        // Debugging log to confirm if tracer is being set
+        Console.WriteLine(_tracer != null ? "Tracer initialized" : "Tracer is null");
     }
 }
