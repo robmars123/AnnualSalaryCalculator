@@ -198,20 +198,10 @@
                                     Command="{Binding OnCalculate_Command}"
                                     Margin="20" />
 
-                <Label Text="{Binding ResultMessage}" HorizontalOptions="CenterAndExpand"
-                       TextColor="Green"/>
-
-                <StackLayout>
-                    <CollectionView>
-                        <CollectionView.ItemsLayout>
-                                <LinearItemsLayout Orientation="Vertical" />
-                            </CollectionView.ItemsLayout>
-                        </CollectionView>
-                        <CollectionView  ItemsSource="{Binding Calculator.HistoryList}">
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Vertical" />
-                        </CollectionView.ItemsLayout>
-                    </CollectionView>
+                <StackLayout VerticalOptions="CenterAndExpand"
+                             HorizontalOptions="Center"
+                             >
+                    <Label Text="v1.5"/>
                 </StackLayout>
                 
             </VerticalStackLayout>
